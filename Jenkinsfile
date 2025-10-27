@@ -23,13 +23,12 @@ pipeline {
             steps {
                 deploy adapters: [
                     tomcat9(
-                        credentialsId: 'tomcat-creds',  // must match the credentials ID in Jenkins
+                        credentialsId: 'tomcat-creds1',  // must match the credentials ID in Jenkins
                         path: '',
                         url: 'http://localhost:8080'
                     )
-                ],
-                contextPath: '/witsolapur',  // URL path for your app
-                war: '**/target/*.war'
+                ], contextPath: '/witsolapur', war: 'target/witsolapur-webapp.war'
+
             }
         }
     }
