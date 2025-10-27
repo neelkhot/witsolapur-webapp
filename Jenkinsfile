@@ -23,7 +23,7 @@ pipeline {
             steps {
                 deploy adapters: [
                     tomcat9(
-                        credentialsId: 'tomcat-creds1',  // must match the credentials ID in Jenkins
+                        credentialsId: 'dcd35614-386a-4b7e-91d1-336c5a5ad911',  // must match the credentials ID in Jenkins
                         path: '',
                         url: 'http://localhost:8080'
                     )
