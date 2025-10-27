@@ -1,0 +1,3 @@
+create a web applicatio for wit solapur with at least 5 pages using github
+ maven tomcat with jenkins automate deployment of the application to a container using 
+ jenkins plugin deploy to container also use build pipeline pluginas
