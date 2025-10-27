@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven'   // the name you configured under Jenkins → Global Tool Configuration
+        jdk 'JDK17'     // change if your JDK name is different
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/<your-username>/witsolapur-webapp.git'
+            }
+        }
+
+        stage('Build with Maven') {
+            steps {
+                bat 'mvn clean package'
+            }
+        }
+
+        stage('Deploy to Tomcat') {
+            steps {
+                deploy adapters: [
+                    tomcat9(
+                        credentialsId: 'tomcat-creds',  // must match the credentials ID in Jenkins
+                        path: '',
+                        url: 'http://localhost:8080'
+                    )
+                ],
+                contextPath: '/witsolapur',  // URL path for your app
+                war: '**/target/*.war'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Application built and deployed successfully!'
+            echo 'Access it at: http://localhost:8080/witsolapur'
+        }
+        failure {
+            echo '❌ Build or deployment failed. Check logs for details.'
+        }
+    }
+}
